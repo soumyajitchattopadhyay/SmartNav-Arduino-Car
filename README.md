@@ -1,101 +1,128 @@
-Arduino Autobot Workshop Project
+🚗 SmartNav Arduino Car
 
-This repository contains the firmware for an autonomous robotic cart built on the Arduino UNO platform. The project demonstrates a hands-on implementation of an embedded system capable of real-time path tracking and obstacle avoidance, showcasing skills in robotics, microcontroller programming, and control systems.
+An autonomous line-following and obstacle-avoiding robot, custom-built with an Arduino UNO.
 
-Features
+Suggestion: You can replace the link above with a GIF of your car in action!
 
-Autonomous Navigation: The robot can navigate a predefined path by following a black line on a white surface.
+About This Project
 
-Obstacle Avoidance: Utilizes ultrasonic and IR proximity sensors to detect and maneuver around obstacles in its path.
+This repository contains the firmware and documentation for the SmartNav Arduino Car, an autonomous vehicle built from the ground up. This project demonstrates a practical application of embedded systems for real-time path tracking and collision avoidance, showcasing skills in microcontroller programming, sensor integration, and robotics.
 
-Sensor Fusion: Implements a priority-based control system where obstacle avoidance overrides line-following behavior to ensure collision-free operation.
+✨ Key Features
 
-PID Control: A Proportional-Integral-Derivative (PID) control algorithm is used for smooth and adaptive line tracking, dynamically adjusting motor speeds to correct any deviation from the path.
+Path Navigation: Utilizes two independent IR sensors underneath the chassis to accurately track and follow a black line on a contrasting surface.
 
-Embedded Systems Design: The entire system is controlled by an Arduino UNO microcontroller programmed in C++.
+Obstacle Avoidance: Equipped with a forward-facing HC-SR04 ultrasonic sensor to detect objects in its path and execute an avoidance maneuver.
 
-Hardware Components
+Visual Status Indicator: A unique dual-LED system provides real-time feedback on the car's operational state:
 
-Chassis: 2WD Robotic Cart Chassis
+🟢 Green LED: Solid light indicates the car is actively moving and following the path.
 
-Microcontroller: Arduino UNO R3
+🟡 Yellow LED: Blinks intermittently when the car is stopped (in neutral) but still powered on.
 
-Motor Driver: L298N Motor Driver Module
+Stable & Smooth Maneuverability: A ball caster wheel at the front provides a stable third point of contact, allowing for smooth, low-friction turns and pivots.
 
-Motors: 2 x DC Geared Motors
+🛠️ Hardware Components
 
-Obstacle Detection:
+Component
+
+Item
+
+Purpose
+
+Microcontroller
+
+Arduino UNO R3
+
+The "brain" of the robot
+
+Motor Driver
+
+L298N Motor Driver Module
+
+Controls the speed and direction of motors
+
+Chassis
+
+2WD Robotic Car Chassis with DC Geared Motors
+
+The body and drivetrain of the robot
+
+Path Sensing
+
+2 x IR Infrared Line Follower Sensors
+
+To detect the black line for navigation
+
+Obstacle Sensing
 
 1 x HC-SR04 Ultrasonic Sensor
 
-1 x IR Proximity/Obstacle Sensor
+To detect objects in front of the car
 
-Line Tracking: 1 x TCRT5000 3-Channel IR Line Follower Sensor Array
+Status Display
 
-Power Supply: 7.4V Li-ion Battery Pack or 9V Battery
+1 x Green LED, 1 x Yellow LED
 
-Software & Libraries
+Visual feedback on the car's state
 
-IDE: Arduino IDE
+Stability
 
-Language: C++
+1 x Metal Ball Caster Wheel
 
-Libraries: No external libraries are required. The code uses the standard Arduino core functions.
+Provides a smooth pivot point
 
-Code Structure
+Power
 
-The main Arduino sketch (autobot_controller.ino) is organized into several key sections:
+7.4V Li-ion Battery Pack or 9V Battery
 
-Pin Definitions & Constants:
+Powers the entire system
 
-Defines the Arduino pins connected to motors and sensors.
+🧠 How It Works
 
-Sets constants for PID gains, motor speeds, and obstacle detection thresholds.
+The robot's logic operates on a simple but effective priority system: safety first.
 
-setup():
+Check for Obstacles: The loop() function continuously pings the ultrasonic sensor to measure the distance to any object in front. This is the highest priority action.
 
-Initializes serial communication for debugging.
+Avoid or Follow:
 
-Configures all pins (motors, sensors) as either INPUT or OUTPUT.
+If an obstacle is detected within a predefined threshold (e.g., 15 cm), the car immediately stops, reverses, turns to navigate around the object, and then attempts to resume its task. The yellow "neutral" LED blinks during this maneuver.
 
-Ensures the robot is stationary on startup.
+If the path is clear, the robot reads the values from the two bottom-facing IR sensors. By comparing the readings, it determines its position relative to the black line and adjusts the speed of the left and right wheels to steer itself correctly. The green "moving" LED stays lit.
 
-loop():
+🚀 Getting Started
 
-This is the main control loop that runs continuously.
+1. Assemble the Hardware
 
-It first checks for obstacles using the ultrasonic and IR proximity sensors. This check is given the highest priority.
+Connect all sensors, the L298N motor driver, and the LEDs to the Arduino UNO as defined by the pin constants in the .ino sketch file.
 
-If an obstacle is detected, it calls the obstacleAvoidance() function.
+2. Upload the Firmware
 
-If no obstacle is present, it calls the lineFollowing() function to continue tracking the path.
+Open the firmware sketch in the Arduino IDE.
 
-Core Logic Functions:
+Go to Tools > Board and select "Arduino Uno".
 
-lineFollowing(): Reads data from the 3-channel IR sensor array. It calculates an error value based on the robot's position relative to the line. This error is fed into the PID algorithm to calculate a correction value, which then adjusts the left and right motor speeds to steer the robot back onto the line.
+Go to Tools > Port and select the correct COM port for your device.
 
-obstacleAvoidance(): A simple but effective function that stops the robot, reverses for a short duration, turns right to avoid the obstacle, and then stops again, allowing the main loop to resume control.
+Click the Upload button.
 
-getUltrasonicDistance(): A helper function that triggers the HC-SR04 sensor and returns the measured distance in centimeters.
+3. Power On and Test
 
-Motor Control Functions:
+Power the robot with your battery pack.
 
-A set of low-level functions (moveForward, moveBackward, turnLeft, turnRight, stopMotors) provide direct control over the L298N motor driver, making the main logic cleaner and more readable.
+Place the car on a surface with a black line path.
 
-How to Use
+Watch it go! You can test the obstacle avoidance by placing your hand in front of the ultrasonic sensor.
 
-Assemble the Hardware: Connect all the sensors, motor driver, and motors to the Arduino UNO as defined in the autobot_controller.ino file.
+To see debug messages, open the Serial Monitor at a baud rate of 9600.
 
-Upload the Code: Open the autobot_controller.ino sketch in the Arduino IDE.
+📸 Gallery
 
-Select Board and Port: Go to Tools > Board and select "Arduino Uno". Then, go to Tools > Port and select the correct port for your device.
+Here are some pictures of the final build.
 
-Compile and Upload: Click the upload button to flash the firmware to the Arduino.
+Front View
 
-Power On: Power the robot using the battery pack.
+Top-Down View
 
-Test: Place the robot on a surface with a black line and observe its line-following and obstacle-avoidance behaviors. You can open the Serial Monitor (Tools > Serial Monitor) at a baud rate of 9600 to see debug messages.
 
-Conclusion
 
-This project serves as a practical demonstration of fundamental robotics concepts, including sensor integration, control algorithms, and autonomous decision-making in an embedded system.
