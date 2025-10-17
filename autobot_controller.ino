@@ -8,7 +8,7 @@
  * - 1 green LED and 1 yellow LED for status indication.
  * The robot prioritizes obstacle avoidance over line following.
  *
- * @version 2.0 (Corrected for specific hardware)
+ * @version 2.0 
  * @date    2022-06-29
  */
 
@@ -33,8 +33,8 @@ const int LINE_LEFT_PIN = A0;
 const int LINE_RIGHT_PIN = A2; // Using A2 as per the original code's right pin
 
 // Status LEDs
-const int GREEN_LED_PIN = 9;  // Example pin, change if needed
-const int YELLOW_LED_PIN = 10; // Example pin, change if needed
+const int GREEN_LED_PIN = 9;  
+const int YELLOW_LED_PIN = 10; 
 
 // --- Constants ---
 const int BASE_SPEED = 150; // Base speed for the motors (0-255)
@@ -223,3 +223,4 @@ void stopMotors() {
   analogWrite(ENB, 0);
   analogWrite(ENA, 0);
 }
+
