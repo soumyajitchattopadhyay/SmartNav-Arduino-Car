@@ -1,120 +1,118 @@
-🚗 SmartNav Arduino Car
+SmartNav: An Autonomous Arduino Rover
 
-An autonomous line-following and obstacle-avoiding robot, custom-built with an Arduino UNO.
+An autonomous, line-following robotic vehicle with integrated obstacle avoidance, built on the Arduino UNO platform.
 
-Suggestion: You can replace the link above with a GIF of your car in action!
+Overview
 
-About This Project
+This repository contains the firmware for the SmartNav Rover, a project designed to demonstrate a practical application of embedded systems for autonomous navigation. The system integrates real-time sensor data to perform path tracking and collision avoidance, showcasing fundamental skills in microcontroller programming, control logic, and robotics engineering.
 
-This repository contains the firmware and documentation for the SmartNav Arduino Car, an autonomous vehicle built from the ground up. This project demonstrates a practical application of embedded systems for real-time path tracking and collision avoidance, showcasing skills in microcontroller programming, sensor integration, and robotics.
+Core Functionality
 
-✨ Key Features
+Line-Following Navigation: Employs two independent IR (infrared) sensors on the undercarriage to detect and track a black line on a contrasting surface. The differential drive is modulated based on sensor feedback to maintain the vehicle's course.
 
-Path Navigation: Utilizes two independent IR sensors underneath the chassis to accurately track and follow a black line on a contrasting surface.
+Ultrasonic Obstacle Avoidance: A forward-facing HC-SR04 ultrasonic sensor provides robust collision avoidance. When an obstacle is detected within a predefined safety threshold, the system overrides navigation to perform a corrective maneuver.
 
-Obstacle Avoidance: Equipped with a forward-facing HC-SR04 ultrasonic sensor to detect objects in its path and execute an avoidance maneuver.
+Dual-Mode Visual Status Indicator: A custom two-LED system offers clear, real-time feedback on the rover's operational state:
 
-Visual Status Indicator: A unique dual-LED system provides real-time feedback on the car's operational state:
+Green LED (Active Mode): A solid green light indicates the vehicle is powered on and executing its line-following logic.
 
-🟢 Green LED: Solid light indicates the car is actively moving and following the path.
+Yellow LED (Standby/Neutral Mode): A blinking yellow light signifies that the vehicle is powered but stationary, either upon startup or during an obstacle avoidance maneuver.
 
-🟡 Yellow LED: Blinks intermittently when the car is stopped (in neutral) but still powered on.
+Low-Friction Pivoting: A ball caster serves as the third wheel, ensuring stability while allowing for smooth, efficient turns with minimal friction.
 
-Stable & Smooth Maneuverability: A ball caster wheel at the front provides a stable third point of contact, allowing for smooth, low-friction turns and pivots.
-
-🛠️ Hardware Components
+Hardware Specifications
 
 Component
 
 Item
 
-Purpose
+Function
 
 Microcontroller
 
 Arduino UNO R3
 
-The "brain" of the robot
+Central processing unit for all logic.
 
 Motor Driver
 
-L298N Motor Driver Module
+L2B98N Motor Driver Module
 
-Controls the speed and direction of motors
+Manages power and direction for motors.
 
 Chassis
 
-2WD Robotic Car Chassis with DC Geared Motors
+2WD Robotic Car Chassis & DC Geared Motors
 
-The body and drivetrain of the robot
+Provides the structural frame and drive.
 
 Path Sensing
 
 2 x IR Infrared Line Follower Sensors
 
-To detect the black line for navigation
+Detects the line for path navigation.
 
 Obstacle Sensing
 
 1 x HC-SR04 Ultrasonic Sensor
 
-To detect objects in front of the car
+Measures distance to avoid collisions.
 
 Status Display
 
 1 x Green LED, 1 x Yellow LED
 
-Visual feedback on the car's state
+Provides visual operational feedback.
 
 Stability
 
 1 x Metal Ball Caster Wheel
 
-Provides a smooth pivot point
+Enables smooth, stable pivoting.
 
-Power
+Power Source
 
 7.4V Li-ion Battery Pack or 9V Battery
 
-Powers the entire system
+Powers the entire system.
 
-🧠 How It Works
+Control Logic
 
-The robot's logic operates on a simple but effective priority system: safety first.
+The firmware operates on a priority-driven control loop where safety is paramount.
 
-Check for Obstacles: The loop() function continuously pings the ultrasonic sensor to measure the distance to any object in front. This is the highest priority action.
+Obstacle Detection Priority: In each cycle of the main loop(), the first action is to ping the ultrasonic sensor.
 
-Avoid or Follow:
+State-Based Action:
 
-If an obstacle is detected within a predefined threshold (e.g., 15 cm), the car immediately stops, reverses, turns to navigate around the object, and then attempts to resume its task. The yellow "neutral" LED blinks during this maneuver.
+If an obstacle is detected, the system enters an avoidance state. The rover halts, reverses, executes a turn to clear the object, and then returns control to the main loop. The yellow LED blinks to indicate this temporary state.
 
-If the path is clear, the robot reads the values from the two bottom-facing IR sensors. By comparing the readings, it determines its position relative to the black line and adjusts the speed of the left and right wheels to steer itself correctly. The green "moving" LED stays lit.
+If the path is clear, the system enters a navigation state. It processes data from the dual IR sensors to calculate path deviation and makes real-time adjustments to the wheel motors to steer the vehicle correctly. The green LED remains solid.
 
-🚀 Getting Started
+Setup and Operation
 
-1. Assemble the Hardware
+1. Hardware Assembly
 
-Connect all sensors, the L298N motor driver, and the LEDs to the Arduino UNO as defined by the pin constants in the .ino sketch file.
+Connect all components (sensors, motor driver, LEDs) to the Arduino UNO according to the pin definitions specified in the header of the .ino firmware file.
 
-2. Upload the Firmware
+2. Firmware Deployment
 
-Open the firmware sketch in the Arduino IDE.
+Open the .ino sketch file in the Arduino IDE.
 
-Go to Tools > Board and select "Arduino Uno".
+Navigate to Tools > Board and select "Arduino Uno".
 
-Go to Tools > Port and select the correct COM port for your device.
+Navigate to Tools > Port and select the appropriate COM port for your device.
 
-Click the Upload button.
+Click the Upload button to flash the firmware.
 
-3. Power On and Test
+3. System Test
 
-Power the robot with your battery pack.
+Power the system using the connected battery pack.
 
-Place the car on a surface with a black line path.
+Place the rover on a surface with a clearly marked black line.
 
-Watch it go! You can test the obstacle avoidance by placing your hand in front of the ultrasonic sensor.
+Test the obstacle avoidance by placing an object in the rover's path.
 
-To see debug messages, open the Serial Monitor at a baud rate of 9600.
+For debugging, open the Serial Monitor at a baud rate of 9600 to view real-time sensor data and status messages.
 
 ### 📸 Gallery
 
