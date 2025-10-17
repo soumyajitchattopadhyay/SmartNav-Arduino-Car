@@ -116,9 +116,13 @@ Watch it go! You can test the obstacle avoidance by placing your hand in front o
 
 To see debug messages, open the Serial Monitor at a baud rate of 9600.
 
-📸 Gallery
+### 📸 Gallery
 
 Here are some pictures of the final build.
+
+| Front View | Back View |
+| :---: | :---: |
+| ![Front View of the SmartNav Car](https://raw.githubusercontent.com/soumyajitchattopadhyay/SmartNav-Arduino-Car/main/images/IMG_3635.PNG) | ![Back View of the SmartNav Car](https://raw.githubusercontent.com/soumyajitchattopadhyay/SmartNav-Arduino-Car/main/images/IMG_3637.PNG) |
 
 [Front View](https://github.com/soumyajitchattopadhyay/SmartNav-Arduino-Car/blob/main/images/IMG_3635.PNG)
 
