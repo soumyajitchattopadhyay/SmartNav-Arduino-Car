@@ -120,7 +120,7 @@ To see debug messages, open the Serial Monitor at a baud rate of 9600.
 
 Here are some pictures of the final build.
 
-Front View
+[Front View](https://github.com/soumyajitchattopadhyay/SmartNav-Arduino-Car/blob/main/images/IMG_3635.PNG)
 
 Top-Down View
 
